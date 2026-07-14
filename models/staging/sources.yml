@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: banxico
+    database: vernal-citadel-502405-h7
+    schema: banxico
+    tables:
+      - name: TIIE_08_26
