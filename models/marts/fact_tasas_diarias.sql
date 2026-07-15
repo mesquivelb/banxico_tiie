@@ -21,5 +21,5 @@ t.tiie_a_28_dias,
   t.tiie_a_182_dias,
   t.tasa_objetivo_vigente as tasa_objetivo,
   round(t.tiie_a_28_dias-t.tasa_objetivo_vigente, 4) as spread_tiie28_vs_objetivo,
-  case when t.tiie_28 is not null then true else false end as es_dia_habil_bancario
+  case when t.tiie_a_28_dias is not null then true else false end as es_dia_habil_bancario
   from tasas_ff t
