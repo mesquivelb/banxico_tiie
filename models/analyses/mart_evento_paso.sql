@@ -29,14 +29,20 @@ eventos as( SELECT
     where tasa_objetivo != tasa_anterior
 ),
 eventos_punto_partida as (SELECT
-    e.*,
-    (select 
-    t.tiie_28_ff
-    from tasas_ff t
-    where t.fecha<e.fecha_evento
-    order by t.fecha DESC
-    LIMIT 1) as tiie_28_dia_antes
-    from eventos e
+    
+    e.fecha_evento,
+    e.tasa_anterior,
+    e.tasa_nueva,
+    e.movimiento,
+    e.direccion,
+    e.decada,
+    t.tiie_28_ff AS tiie_28_dia_antes
+  FROM eventos e
+  JOIN tasas_ff t
+    ON t.fecha < e.fecha_evento
+  QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY e.fecha_evento ORDER BY t.fecha DESC
+  ) = 1
 ),
 
 eventos_con_umbral as (SELECT
